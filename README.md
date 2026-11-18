@@ -31,14 +31,9 @@ npx skills add xiaohai-uid/ui-prototype-skill -s ui-prototype -g -a cline -y
 ### 从上游同步更新
 
 ```bash
-# 拉取上游
-git remote add upstream https://github.com/emilkowalski/skills.git 2>/dev/null || true
-git fetch upstream
-# 手动复制并改名（也可用 scripts/sync-upstream.sh）
-mkdir -p skills/ui-prototype
-cp upstream-src/skills/prototype/SKILL.md skills/ui-prototype/SKILL.md
-cp upstream-src/skills/prototype/PICKER.md skills/ui-prototype/PICKER.md
-# 修改 name
-sed -i 's/^name: prototype$/name: ui-prototype/' skills/ui-prototype/SKILL.md
-git add -A && git commit -m "sync: update ui-prototype from upstream"
+# 在本仓库根目录执行，将上游放在相邻目录
+git clone https://github.com/emilkowalski/skills.git ../emil-skills
+# 先核对工作区是否干净。同步脚本会暂存工作区变更并创建提交。
+git status --short
+bash scripts/sync-upstream.sh ../emil-skills
 ```
